@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Interactive, synthetic-data-only Sunday Estate design review with Light/Dark and responsive device previews.">
+<meta name="color-scheme" content="light">
+<title>Sunday Estate — React Wave 1 Interactive Review</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,-apple-system,"IBM Plex Sans Thai",sans-serif;--ink:#181c45;--sub:#656987;--panel:#fff;--edge:#e3e0f5;--violet:#7854ef;--canvas:#f2f0fb;--muted:#eee9ff}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:radial-gradient(ellipse at 15% 2%,#eae6ff 0,transparent 38%),radial-gradient(ellipse at 98% 98%,#e1f5fa 0,transparent 40%),#f6f5fc;min-height:100vh}button,a{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #7151ef;outline-offset:3px}a{color:#5a3bc1}.wrap{max-width:1530px;margin:0 auto;padding:0 20px 34px}
+.toolbar{display:flex;align-items:center;gap:17px;flex-wrap:wrap;justify-content:space-between;background:rgba(255,255,255,.94);border:1px solid var(--edge);border-radius:0 0 21px 21px;padding:14px 19px 16px;box-shadow:0 8px 26px #403c8511}.brand{display:flex;align-items:center;gap:11px;min-width:185px}.mark{width:39px;height:39px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(150deg,#a991ff,#7149eb);box-shadow:0 5px 14px #7653e43a;color:white;font-size:23px;font-weight:900}.brand strong{font-size:15px;letter-spacing:.01em}.brand span{display:block;font-size:11px;color:var(--sub);margin-top:2px}.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.group{display:flex;align-items:center;border:1px solid var(--edge);border-radius:14px;padding:4px;gap:3px;background:#f5f3fd}.group-label{font-weight:700;font-size:11px;color:var(--sub);margin-right:4px}.group button{border:0;background:transparent;min-height:43px;color:#555c80;border-radius:10px;padding:8px 13px;font-weight:650;font-size:12px;white-space:nowrap}.group button[aria-pressed="true"]{background:linear-gradient(120deg,#8d65fa,#7251ec);box-shadow:0 3px 10px #7554ed45;color:#fff}.group button:hover:not([aria-pressed="true"]){background:#eae4fa}.group.theme button[data-theme="modern"][aria-pressed="true"]{background:linear-gradient(120deg,#152348,#35458b)}.heading{padding:22px 3px 14px;display:flex;gap:12px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap}.heading h1{font-size:21px;margin:0 0 5px}.heading p{margin:0;color:var(--sub);font-size:13px;line-height:1.5}.demo{display:inline-flex;align-items:center;padding:6px 9px;border-radius:100px;background:#eadfff;color:#6637be;font-size:11px;font-weight:700}.smalltools{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.fit{font-size:12px;color:#45486e;display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap}.fit input{accent-color:#7752ee;width:16px;height:16px}.full{display:inline-flex;align-items:center;min-height:42px;padding:8px 12px;border-radius:11px;border:1px solid #cfc6f7;background:#fff;text-decoration:none;font-size:12px;font-weight:700}.full:hover{background:#f5f1ff}.stage{min-width:0;min-height:380px;border:1px solid #dbd6f0;border-radius:22px;background:linear-gradient(145deg,#f0edfa,#eef2ff);padding:24px 14px 30px;overflow-x:auto;overflow-y:visible;box-shadow:inset 0 1px 2px #fff,0 16px 40px #403c8514}.stage[data-theme="modern"]{background:radial-gradient(ellipse at 60% 15%,#303355,#121a31 55%,#0b1025 100%);border-color:#293354}.device-caption{display:flex;align-items:center;justify-content:center;gap:8px;min-height:26px;font-size:12px;font-weight:750;color:#626884;padding:0 4px 13px}.stage[data-theme="modern"] .device-caption{color:#d0d7f5}.device-caption .chip{background:#fff9;border:1px solid #a7a6c744;border-radius:100px;padding:4px 10px}.stage-inner{width:100%;min-height:1px}.shell{position:relative;margin:0 auto;transition:width .18s ease,height .18s ease}.screen{position:absolute;top:0;left:0;transform-origin:top left;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #c6c3de;box-shadow:0 12px 35px #17153629}.stage[data-theme="modern"] .screen{border-color:#50618b;box-shadow:0 10px 35px #0009}.screen iframe{display:block;width:100%;height:100%;border:0;background:white}.screen.device-mobile,.screen.device-tablet{border:6px solid #242b49;border-radius:26px}.screen.device-mobile iframe,.screen.device-tablet iframe{border-radius:17px}.status{min-height:36px;display:flex;align-items:center;gap:8px;justify-content:center;font-size:12px;color:#626884;padding:7px 4px 0}.status b{color:#6444ca}.notice{padding:16px 3px 4px;font-size:12px;line-height:1.65;color:#5f647e}.notice strong{color:#3c3f68}.notice a{word-break:break-all}
+@media(max-width:1060px){.toolbar{align-items:stretch}.brand{width:100%}.controls{flex:1;justify-content:space-between}.group{flex:1;justify-content:center}}
+@media(max-width:690px){.wrap{padding:0 10px 25px}.toolbar{padding:10px 10px 14px;gap:10px;border-radius:0 0 16px 16px}.brand{min-width:0}.controls{gap:8px;width:100%;display:grid;grid-template-columns:1fr}.group{min-width:0;justify-content:center}.group-label{margin-right:auto;padding-left:5px}.group button{min-height:44px;padding:9px 10px}.heading{padding:16px 4px 12px}.heading h1{font-size:18px}.heading p{font-size:11px}.stage{padding:15px 7px 22px;border-radius:15px}.device-caption{font-size:11px}.notice{font-size:11px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="toolbar">
+    <div class="brand"><div class="mark" aria-hidden="true">⌂</div><div><strong>Sunday Estate</strong><span>React PR #77 · Interactive DEMO</span></div></div>
+    <div class="controls">
+      <div class="group devices" role="group" aria-label="เลือกขนาดหน้าจอ">
+        <span class="group-label">หน้าจอ</span>
+        <button type="button" data-device="mobile" aria-pressed="false">📱 Mobile</button>
+        <button type="button" data-device="tablet" aria-pressed="false">▤ iPad</button>
+        <button type="button" data-device="desktop" aria-pressed="false">▣ Desktop</button>
+      </div>
+      <div class="group theme" role="group" aria-label="เลือกธีม">
+        <span class="group-label">ธีม</span>
+        <button type="button" data-theme="light" aria-pressed="true">☀ สว่าง</button>
+        <button type="button" data-theme="modern" aria-pressed="false">☾ มืด</button>
+      </div>
+    </div>
+  </header>
+  <section class="heading">
+    <div><h1>ทดลอง Dashboard รุ่น React Wave 1</h1><p>เลือกอุปกรณ์และธีมได้ทันที · ข้อมูลทั้งหมดเป็น DEMO ไม่เชื่อม Supabase</p></div>
+    <div class="smalltools"><span class="demo">DEMO ONLY</span><label class="fit"><input id="fitView" type="checkbox" checked> ย่อให้พอดีหน้าจอ</label><a class="full" href="./app/login/" target="_blank" rel="noopener">เปิดเต็มหน้าจอ ↗</a></div>
+  </section>
+  <section class="stage" id="stage" data-theme="light" aria-label="บริเวณแสดงผล Responsive Preview">
+    <div class="device-caption"><span class="chip" id="deviceInfo">Mobile · 375 × 812px</span><span>จำลอง Layout ตามความกว้างที่เลือก</span></div>
+    <div class="stage-inner" id="stageInner"><div class="shell" id="shell"><div class="screen device-mobile" id="screen"><iframe id="appFrame" src="./app/login/" title="Sunday Estate Interactive Dashboard DEMO" loading="eager" referrerpolicy="no-referrer"></iframe></div></div></div>
+    <div class="status" id="frameStatus" role="status" aria-live="polite">กำลังโหลดต้นแบบ…</div>
+  </section>
+  <p class="notice"><strong>หมายเหตุ:</strong> React PR #77 ใช้ข้อมูลจำลองเท่านั้น • โหมด Mobile / iPad / Desktop จำลอง <em>CSS viewport width</em> ภายในกรอบ Preview ไม่ใช่การทดสอบ Safari หรืออุปกรณ์จริง หากเลือก Desktop บนมือถือ ภาพจะถูกย่อให้เห็นโครงสร้างทั้งหน้า; ปิด “ย่อให้พอดีหน้าจอ” เพื่อดูขนาดจริงและเลื่อนแนวนอนภายในพื้นที่ Preview. การกดไอคอนใน Dashboard เป็นเพียงการทดลอง UI ไม่ทำรายการธุรกิจ</p>
+</div>
+<script>
+'use strict';
+const devices={mobile:{width:375,height:812,label:'Mobile'},tablet:{width:768,height:1024,label:'iPad'},desktop:{width:1280,height:900,label:'Desktop'}};
+const stage=document.getElementById('stage');
+const inner=document.getElementById('stageInner');
+const shell=document.getElementById('shell');
+const screen=document.getElementById('screen');
+const frame=document.getElementById('appFrame');
+const status=document.getElementById('frameStatus');
+const fit=document.getElementById('fitView');
+const deviceInfo=document.getElementById('deviceInfo');
+let device=window.innerWidth<620?'mobile':'desktop';
+let theme='light';
+let frameReady=false;
+let frameObserver=null;
+function updateButtons(){
+  document.querySelectorAll('[data-device]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.device===device)));
+  document.querySelectorAll('.group.theme button[data-theme]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.theme===theme)));
+  stage.dataset.theme=theme;
+}
+function layout(){
+  const d=devices[device];
+  const border=device==='desktop'?2:12;
+  const outerWidth=d.width+border;
+  const outerHeight=d.height+border;
+  const space=Math.max(250,stage.clientWidth-30);
+  const scale=fit.checked?Math.min(1,space/outerWidth):1;
+  inner.style.width=fit.checked?'100%':`${outerWidth}px`;
+  shell.style.width=`${Math.round(outerWidth*scale)}px`;
+  shell.style.height=`${Math.round(outerHeight*scale)}px`;
+  screen.style.width=`${outerWidth}px`;
+  screen.style.height=`${outerHeight}px`;
+  screen.style.transform=`scale(${scale})`;
+  screen.className=`screen device-${device}`;
+  deviceInfo.textContent=`${d.label} · ${d.width} × ${d.height}px`;
+  status.textContent=frameReady?`${d.label} ${d.width}px · ${theme==='modern'?'ธีมมืด':'ธีมสว่าง'} · พร้อมทดลอง`:'กำลังโหลดต้นแบบ…';
+  updateButtons();
+}
+function switchTheme(next){
+  if(next!=='light'&&next!=='modern')return;
+  theme=next;
+  if(frameReady){
+    try{
+      const doc=frame.contentDocument;
+      const root=doc?.documentElement;
+      if(root?.dataset.theme!==next){
+        // Trigger REAL React event handlers; do not merely repaint the DOM.
+        const loginToggle=doc?.querySelector('.login-topbar .theme-switch button[title="'+next+'"]');
+        const appToggle=doc?.querySelector('.topbar button[title^="Theme:"]');
+        if(loginToggle)loginToggle.click();
+        else if(appToggle)appToggle.click();
+        else {
+          frame.contentWindow.localStorage.setItem('se_theme',next);
+          frame.contentWindow.location.reload();
+        }
+      }
+    }catch(error){status.textContent='Browser ไม่อนุญาตให้ควบคุม iframe — ทดลองเปิดเต็มหน้าจอแทน';}
+  }
+  layout();
+}
+function connectFrame(){
+  frameReady=true;
+  if(frameObserver)frameObserver.disconnect();
+  try{
+    const root=frame.contentDocument.documentElement;
+    frameObserver=new MutationObserver(()=>{
+      const current=root.dataset.theme;
+      if(current==='light'||current==='modern'){
+        theme=current;
+        updateButtons();
+        status.textContent=`${devices[device].label} ${devices[device].width}px · ${theme==='modern'?'ธีมมืด':'ธีมสว่าง'} · พร้อมทดลอง`;
+      }
+    });
+    frameObserver.observe(root,{attributes:true,attributeFilter:['data-theme']});
+  }catch(error){frameReady=false;status.textContent='ไม่สามารถเข้าถึงหน้า Preview ภายในกรอบได้';}
+  // React finishes hydration asynchronously after iframe load.
+  // Enter only the fixture demo account, once; keep this preview read-only.
+  let attempts=0;
+  const enterDemo=setInterval(()=>{
+    attempts++;
+    try{
+      const doc=frame.contentDocument;
+      const demo=doc?.querySelector('.demo-chip');
+      if(demo) {
+        demo.click();
+        clearInterval(enterDemo);
+        switchTheme(theme);
+      } else if(attempts>=60) {
+        clearInterval(enterDemo);
+        status.textContent='กรุณากดบัญชี DEMO ในหน้าแอปเพื่อทดลอง Dashboard';
+      }
+    }catch(error){clearInterval(enterDemo);}
+  },150);
+  switchTheme(theme);
+}
+document.querySelectorAll('[data-device]').forEach(el=>el.addEventListener('click',()=>{device=el.dataset.device;layout()}));
+document.querySelectorAll('.group.theme button[data-theme]').forEach(el=>el.addEventListener('click',()=>switchTheme(el.dataset.theme)));
+fit.addEventListener('change',layout);
+frame.addEventListener('load',connectFrame);
+window.addEventListener('resize',()=>window.requestAnimationFrame(layout));
+layout();
+</script>
+</body>
+</html>
