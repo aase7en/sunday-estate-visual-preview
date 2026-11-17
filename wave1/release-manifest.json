@@ -1,0 +1,25 @@
+{
+  "kind": "static public React DEMO-only visual review",
+  "source_private_repository": "aase7en/sunday-estate-webapp",
+  "source_pr": 77,
+  "source_sha": "e67cf43e2c32088e46b022c63c8ef865d739f559",
+  "demo_only": true,
+  "supabase_url_and_keys": "blank",
+  "preview_path": "/sunday-estate-visual-preview/wave1/",
+  "tested_viewports": [
+    375,
+    768,
+    1280
+  ],
+  "tested_themes": [
+    "light",
+    "modern"
+  ],
+  "local_chromium_smoke": "6/6 PASS",
+  "caveats": [
+    "public JavaScript compilation, no real records",
+    "real iPhone Safari not tested",
+    "not production or approved design acceptance",
+    "GitHub Pages fallback for arbitrary deep links may show 404"
+  ]
+}
